@@ -17,3 +17,4 @@ use Illuminate\Http\Request;
 Route::get('/test', function() {
     return 'Everything is OK';
 });
+
