@@ -80,5 +80,11 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api/user.php'));
 
+        Route::prefix('api/tag')
+            ->middleware(['api', 'auth:api'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api/tag.php'));
+
+
     }
 }
