@@ -41,7 +41,7 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    public function delete()
+    public function destroy()
     {
         $user = auth()->user();
 
