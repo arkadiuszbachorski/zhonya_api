@@ -1,19 +1,20 @@
 <?php
 
-use App\User;
 use App\Tag;
+use App\User;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $users = factory(User::class, 3)->create();
+        $users = User::all();
+
         $users->each(function(User $user) {
             $user->tags()->saveMany(
                 factory(Tag::class, 3)->make()
