@@ -73,6 +73,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('tag/{tag}/task/{task}')
                 ->middleware(['api', 'auth:api', 'can:manage,tag', 'can:manage,task'])
                 ->group($this->apiRoutesFile('tag-task'));
+
+            Route::prefix('task/{task}/attempt')
+                ->middleware(['auth:api', 'can:manage,task'])
+                ->group($this->apiRoutesFile('attempt'));
         });
     }
 

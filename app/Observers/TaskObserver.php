@@ -16,5 +16,6 @@ class TaskObserver
     {
 //        todo: Delete everything that is assigned to Task
         $task->tags()->detach();
+        $task->attempts()->delete();
     }
 }

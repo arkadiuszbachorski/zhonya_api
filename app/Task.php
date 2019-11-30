@@ -71,6 +71,11 @@ class Task extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function attempts()
+    {
+        return $this->hasMany(Attempt::class);
+    }
+
     //endregion
 
 }
