@@ -24,7 +24,6 @@ class AttemptController extends Controller
 
     public function edit(Task $task, Attempt $attempt)
     {
-        $attempt->appendHidden(['task']);
         return $attempt;
     }
 

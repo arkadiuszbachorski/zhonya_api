@@ -17,12 +17,13 @@ class Attempt extends Model
 
     //region Logic
 
-    public function appendHidden($hidden)
+/*    public function appendHidden($hidden)
     {
         $old = $this->getHidden();
         $new = gettype($hidden) === "array" ? array_merge($old, $hidden) : array_merge($old, [$hidden]);
         $this->setHidden($new);
     }
+*/
 
     //endregion
 
