@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Observers\TagObserver;
+use App\Observers\TaskObserver;
 use App\Tag;
+use App\Task;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Tag::observe(TagObserver::class);
+        Task::observe(TaskObserver::class);
     }
 }

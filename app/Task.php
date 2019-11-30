@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Tag extends Model
+class Task extends Model
 {
 
     //region Fields
@@ -27,13 +27,18 @@ class Tag extends Model
 
     //region Scopes
 
-    public function scopeSearch($query, $value)
+    public function scopeSearch($query, $search)
     {
-        return $query->where(function ($query) use ($value) {
-            $query->where('name','LIKE', "%$value%")
-                ->orWhere('description','LIKE', "%$value%")
-                ->orWhere('color','LIKE', "%$value%");
+        return $query->where(function ($query) use ($search) {
+            $query->where('name','LIKE', "%$search%")
+                ->orWhere('description','LIKE', "%$search%");
         });
+    }
+
+    public function scopeActive($query, $active)
+    {
+        //todo: Find active elements
+        return $query;
     }
 
     //endregion
@@ -45,9 +50,9 @@ class Tag extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tasks()
+    public function tags()
     {
-        return $this->belongsToMany(Task::class);
+        return $this->belongsToMany(Tag::class);
     }
 
     //endregion
