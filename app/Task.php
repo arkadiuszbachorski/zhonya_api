@@ -35,7 +35,7 @@ class Task extends Model
         });
     }
 
-    public function scopeActive($query, $active)
+    public function scopeActive($query)
     {
         //todo: Find active elements
         return $query;
