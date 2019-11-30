@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Observers\TagObserver;
 use App\Observers\TaskObserver;
+use App\Observers\UserObserver;
 use App\Tag;
 use App\Task;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Tag::observe(TagObserver::class);
         Task::observe(TaskObserver::class);
+        User::observe(UserObserver::class);
     }
 }
