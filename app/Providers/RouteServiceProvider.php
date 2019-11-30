@@ -37,24 +37,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
-        $this->mapWebRoutes();
-
-        //
     }
 
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapWebRoutes()
-    {
-        Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
-    }
 
     /**
      * Define the "api" routes for the application.
@@ -65,26 +49,35 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+        Route::group([
+            'namespace' => $this->namespace,
+            'prefix' => 'api',
+            'middleware' => 'api',
+        ], function () {
 
-        Route::prefix('api/auth')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/api/auth.php'));
+            Route::prefix('auth')
+                ->group($this->apiRoutesFile('auth'));
 
-        Route::prefix('api/user')
-            ->middleware(['api', 'auth:api'])
-            ->namespace($this->namespace)
-            ->group(base_path('routes/api/user.php'));
+            Route::prefix('user')
+                ->middleware('auth:api')
+                ->group($this->apiRoutesFile('user'));
 
-        Route::prefix('api/tag')
-            ->middleware(['api', 'auth:api'])
-            ->namespace($this->namespace)
-            ->group(base_path('routes/api/tag.php'));
+            Route::prefix('tag')
+                ->middleware('auth:api')
+                ->group($this->apiRoutesFile('tag'));
 
+            Route::prefix('task')
+                ->middleware('auth:api')
+                ->group($this->apiRoutesFile('task'));
 
+            Route::prefix('tag/{tag}/task/{task}')
+                ->middleware(['api', 'auth:api', 'can:manage,tag', 'can:manage,task'])
+                ->group($this->apiRoutesFile('tag-task'));
+        });
+    }
+
+    private function apiRoutesFile($fileName)
+    {
+        return base_path("routes/api/$fileName.php");
     }
 }

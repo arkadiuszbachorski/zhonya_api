@@ -10,8 +10,7 @@ class TagController extends Controller
 {
     public function index(Request $request)
     {
-//        todo: Display how many Tasks every Tag has
-        $tags = auth()->user()->tags();
+        $tags = auth()->user()->tags()->withCount('tasks');
 
         if ($request->has('search')) $tags->search($request->query('search'));
 
@@ -29,8 +28,13 @@ class TagController extends Controller
 
     public function edit(Tag $tag)
     {
-//        todo: Display every user Task to make it appendable
-        return $tag;
+        $tasks = auth()->user()->tasks()->withoutTag($tag->id)->get();
+        $tag->load('tasks');
+
+        return [
+            'tasks' => $tasks,
+            'tag' => $tag,
+        ];
     }
 
     public function update(TagRequest $request, Tag $tag)
