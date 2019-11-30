@@ -41,6 +41,13 @@ class Task extends Model
         return $query;
     }
 
+    public function tag($query, $tagId)
+    {
+        $query->whereHas('tags', function ($query) use ($tagId) {
+           $query->where('id', $tagId);
+        });
+    }
+
     //endregion
 
     //region Relationships
