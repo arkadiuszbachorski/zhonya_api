@@ -30,7 +30,8 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        $tags = auth()->user()->tags;
+        $tags = auth()->user()->tags()->withoutTask($task->id)->get();
+        $task->load('tags');
 
         return [
             'tags' => $tags,

@@ -12,6 +12,8 @@ class Task extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['user_id', 'created_at', 'pivot'];
+
     //endregion
 
     //region Logic
@@ -41,10 +43,17 @@ class Task extends Model
         return $query;
     }
 
-    public function tag($query, $tagId)
+    public function scopeTag($query, $tagId)
     {
         $query->whereHas('tags', function ($query) use ($tagId) {
            $query->where('id', $tagId);
+        });
+    }
+
+    public function scopeWithoutTag($query, $tagId)
+    {
+        $query->whereDoesntHave('tags', function ($query) use ($tagId) {
+            $query->where('tags.id', $tagId);
         });
     }
 

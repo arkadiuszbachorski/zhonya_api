@@ -28,7 +28,8 @@ class TagController extends Controller
 
     public function edit(Tag $tag)
     {
-        $tasks = auth()->user()->tasks;
+        $tasks = auth()->user()->tasks()->withoutTag($tag->id)->get();
+        $tag->load('tasks');
 
         return [
             'tasks' => $tasks,

@@ -12,6 +12,8 @@ class Tag extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['user_id', 'created_at', 'updated_at', 'pivot'];
+
     //endregion
 
     //region Logic
@@ -33,6 +35,13 @@ class Tag extends Model
             $query->where('name','LIKE', "%$value%")
                 ->orWhere('description','LIKE', "%$value%")
                 ->orWhere('color','LIKE', "%$value%");
+        });
+    }
+
+    public function scopeWithoutTask($query, $taskId)
+    {
+        $query->whereDoesntHave('tasks', function ($query) use ($taskId) {
+            $query->where('tasks.id', $taskId);
         });
     }
 
