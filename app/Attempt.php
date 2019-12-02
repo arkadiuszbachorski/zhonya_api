@@ -46,6 +46,11 @@ class Attempt extends Model
         return $this->belongsTo(Task::class);
     }
 
+    public function measurements()
+    {
+        return $this->hasMany(Measurement::class);
+    }
+
     //endregion
 
 }
