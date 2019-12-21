@@ -16,9 +16,18 @@ class TaskController extends Controller
         if ($request->has('active')) $tasks->active();
         if ($request->has('tag')) $tasks->tag($request->query('tag'));
 
+        if ($request->has('withTags')) {
+            $tags = auth()->user()->tags;
+        } else {
+            $tags = null;
+        }
+
         $tasks = $tasks->with('tags')->get();
 
-        return $tasks;
+        return [
+            'tasks' => $tasks,
+            'tags' => $tags,
+        ];
     }
 
     public function store(TaskRequest $request)
