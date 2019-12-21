@@ -33,8 +33,7 @@ class Tag extends Model
     {
         return $query->where(function ($query) use ($value) {
             $query->where('name','LIKE', "%$value%")
-                ->orWhere('description','LIKE', "%$value%")
-                ->orWhere('color','LIKE', "%$value%");
+                ->orWhere('description','LIKE', "%$value%");
         });
     }
 
