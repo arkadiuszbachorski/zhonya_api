@@ -15,15 +15,13 @@ class UserController extends Controller
         $user = $request->user();
 
         $request->validate([
-            'oldPassword' => ['required', new MatchesUserPassword($user)],
-            'newPassword' => ['required', 'string', 'min:8', 'confirmed'],
+            'old_password' => ['required', new MatchesUserPassword($user)],
+            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $data = [
-            'password' => Hash::make($request->input('newPassword')),
-        ];
+        $user->password = Hash::make($request->input('new_password'));
 
-        $user->update($data);
+        $user->save();
 
         return response()->noContent();
     }
