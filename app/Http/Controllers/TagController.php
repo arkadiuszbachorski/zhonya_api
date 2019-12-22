@@ -32,6 +32,11 @@ class TagController extends Controller
         return $tag;
     }
 
+    public function name(Tag $tag)
+    {
+        return $tag->name;
+    }
+
     public function attachTasks(Tag $tag)
     {
         $tags = auth()->user()->tasks()->get()->each(function (Task $task) use ($tag) {
