@@ -28,13 +28,15 @@ class TagController extends Controller
 
     public function edit(Tag $tag)
     {
-        $tasks = auth()->user()->tasks()->withoutTag($tag->id)->get();
-        $tag->load('tasks');
+        return $tag;
+    }
 
-        return [
-            'tasks' => $tasks,
-            'tag' => $tag,
-        ];
+    public function attachTasks(Tag $tag)
+    {
+        $attached = auth()->user()->tasks()->withoutTag($tag->id)->get();
+        $notAttached = auth()->user()->tasks()->withTag($tag->id)->get();
+
+        return compact('attached', 'notAttached');
     }
 
     public function update(TagRequest $request, Tag $tag)

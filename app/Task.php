@@ -43,7 +43,7 @@ class Task extends Model
         return $query;
     }
 
-    public function scopeTag($query, $tagId)
+    public function scopeWithTag($query, $tagId)
     {
         $query->whereHas('tags', function ($query) use ($tagId) {
            $query->where('tags.id', $tagId);
