@@ -18,6 +18,10 @@ class Task extends Model
 
     //region Logic
 
+    public function appendHasQueriedTagAttribute($tagId)
+    {
+        $this->attributes['has_queried_tag'] = $this->tags()->where('tags.id', $tagId)->exists();
+    }
 
     //endregion
 

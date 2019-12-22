@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TagRequest;
 use App\Tag;
+use App\Task;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
@@ -33,10 +34,11 @@ class TagController extends Controller
 
     public function attachTasks(Tag $tag)
     {
-        $attached = auth()->user()->tasks()->withoutTag($tag->id)->get();
-        $notAttached = auth()->user()->tasks()->withTag($tag->id)->get();
+        $tags = auth()->user()->tasks()->get()->each(function (Task $task) use ($tag) {
+            $task->appendHasQueriedTagAttribute($tag->id);
+        });
 
-        return compact('attached', 'notAttached');
+        return $tags;
     }
 
     public function update(TagRequest $request, Tag $tag)
