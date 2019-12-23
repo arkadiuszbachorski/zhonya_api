@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Attempt;
+use App\Policies\AttemptPolicy;
 use App\Policies\TagPolicy;
+use App\Policies\TaskPolicy;
 use App\Tag;
+use App\Task;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,6 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
          Tag::class => TagPolicy::class,
+         Task::class => TaskPolicy::class,
+         Attempt::class => AttemptPolicy::class,
     ];
 
     /**
