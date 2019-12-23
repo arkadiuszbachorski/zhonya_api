@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\Tag;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -39,13 +40,21 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        $tags = auth()->user()->tags()->withoutTask($task->id)->get();
-        $task->load('tags');
+        return $task;
+    }
 
-        return [
-            'tags' => $tags,
-            'task' => $task,
-        ];
+    public function name(Task $task)
+    {
+        return $task->name;
+    }
+
+    public function attachTags(Task $task)
+    {
+        $tags = auth()->user()->tags()->get()->each(function (Tag $tag) use ($task) {
+            $tag->appendHasQueriedTaskAttribute($task->id);
+        });
+
+        return $tags;
     }
 
     public function update(TaskRequest $request, Task $task)
