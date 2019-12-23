@@ -18,6 +18,10 @@ class Task extends Model
 
     //region Logic
 
+    public function appendHasQueriedTagAttribute($tagId)
+    {
+        $this->attributes['has_queried_tag'] = $this->tags()->where('tags.id', $tagId)->exists();
+    }
 
     //endregion
 
@@ -43,10 +47,10 @@ class Task extends Model
         return $query;
     }
 
-    public function scopeTag($query, $tagId)
+    public function scopeWithTag($query, $tagId)
     {
         $query->whereHas('tags', function ($query) use ($tagId) {
-           $query->where('id', $tagId);
+           $query->where('tags.id', $tagId);
         });
     }
 

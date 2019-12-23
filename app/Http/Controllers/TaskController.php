@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\Tag;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -14,11 +15,20 @@ class TaskController extends Controller
 
         if ($request->has('search')) $tasks->search($request->query('search'));
         if ($request->has('active')) $tasks->active();
-        if ($request->has('tag')) $tasks->tag($request->query('tag'));
+        if ($request->has('tag')) $tasks->withTag($request->query('tag'));
 
-        $tasks = $tasks->with('tags')->get();
+        if ($request->has('withTags')) {
+            $tags = auth()->user()->tags;
+        } else {
+            $tags = null;
+        }
 
-        return $tasks;
+        $tasks = $tasks->with('tags')->orderBy('updated_at', 'desc')->get();
+
+        return [
+            'tasks' => $tasks,
+            'tags' => $tags,
+        ];
     }
 
     public function store(TaskRequest $request)
@@ -30,13 +40,21 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        $tags = auth()->user()->tags()->withoutTask($task->id)->get();
-        $task->load('tags');
+        return $task;
+    }
 
-        return [
-            'tags' => $tags,
-            'task' => $task,
-        ];
+    public function name(Task $task)
+    {
+        return $task->name;
+    }
+
+    public function attachTags(Task $task)
+    {
+        $tags = auth()->user()->tags()->get()->each(function (Tag $tag) use ($task) {
+            $tag->appendHasQueriedTaskAttribute($task->id);
+        });
+
+        return $tags;
     }
 
     public function update(TaskRequest $request, Task $task)

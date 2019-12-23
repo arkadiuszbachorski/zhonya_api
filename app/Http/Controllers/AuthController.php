@@ -17,13 +17,17 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->input('email'))->first();
 
-        if (!$user) {
-            return response()->json([], 401);
+        if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            return response()->json([
+                'errors' => [
+                    'email' => [trans('auth.failed')],
+                ]
+            ], 401);
         }
 
-        $body = [
+        /*$body = [
             'client_id' => env('API_CLIENT_ID'),
             'client_secret' => env('API_CLIENT_SECRET'),
             'username' => $request->email,
@@ -44,11 +48,13 @@ class AuthController extends Controller
             return response()->json([], 401);
         }
 
-        $data = json_decode($response->getBody()->getContents());
+        $data = json_decode($response->getBody()->getContents());*/
+
+        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
 
         return response()->json([
-            'access_token' => $data->access_token,
+            'access_token' => $token,
             'scope' => $user->scope,
         ]);
     }
@@ -62,9 +68,15 @@ class AuthController extends Controller
 
         $data['password'] = Hash::make($data['password']);
 
-        User::create($data);
+        $user = User::create($data);
 
-        return response()->noContent(201);
+        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+
+
+        return response()->json([
+            'access_token' => $token,
+            'scope' => $user->scope,
+        ]);
     }
 
     public function logout(Request $request)

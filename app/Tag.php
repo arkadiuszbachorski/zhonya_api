@@ -18,6 +18,11 @@ class Tag extends Model
 
     //region Logic
 
+    public function appendHasQueriedTaskAttribute($taskId)
+    {
+        $this->attributes['has_queried_task'] = $this->tasks()->where('tasks.id', $taskId)->exists();
+    }
+
 
     //endregion
 
@@ -33,8 +38,7 @@ class Tag extends Model
     {
         return $query->where(function ($query) use ($value) {
             $query->where('name','LIKE', "%$value%")
-                ->orWhere('description','LIKE', "%$value%")
-                ->orWhere('color','LIKE', "%$value%");
+                ->orWhere('description','LIKE', "%$value%");
         });
     }
 

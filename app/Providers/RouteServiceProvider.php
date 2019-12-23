@@ -58,25 +58,29 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('auth')
                 ->group($this->apiRoutesFile('auth'));
 
-            Route::prefix('user')
-                ->middleware('auth:api')
-                ->group($this->apiRoutesFile('user'));
+            Route::group(['middleware' => 'auth:api'], function () {
+                Route::prefix('user')
+                    ->group($this->apiRoutesFile('user'));
 
-            Route::prefix('tag')
-                ->middleware('auth:api')
-                ->group($this->apiRoutesFile('tag'));
+                Route::prefix('tag')
+                    ->group($this->apiRoutesFile('tag'));
 
-            Route::prefix('task')
-                ->middleware('auth:api')
-                ->group($this->apiRoutesFile('task'));
+                Route::prefix('task')
+                    ->group($this->apiRoutesFile('task'));
 
-            Route::prefix('tag/{tag}/task/{task}')
-                ->middleware(['api', 'auth:api', 'can:manage,tag', 'can:manage,task'])
-                ->group($this->apiRoutesFile('tag-task'));
+                Route::prefix('tag/{tag}/task/{task}')
+                    ->middleware(['can:manage,tag', 'can:manage,task'])
+                    ->group($this->apiRoutesFile('tag-task'));
 
-            Route::prefix('task/{task}/attempt')
-                ->middleware(['auth:api', 'can:manage,task'])
-                ->group($this->apiRoutesFile('attempt'));
+                Route::prefix('task/{task}/attempt')
+                    ->middleware(['can:manage,task'])
+                    ->group($this->apiRoutesFile('attempt'));
+
+                Route::prefix('search')
+                    ->group($this->apiRoutesFile('search'));
+            });
+
+
         });
     }
 
