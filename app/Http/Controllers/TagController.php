@@ -15,7 +15,7 @@ class TagController extends Controller
 
         if ($request->has('search')) $tags->search($request->query('search'));
 
-        $tags = $tags->get();
+        $tags = $tags->orderBy('tasks_count', 'desc')->get();
 
         return $tags;
     }

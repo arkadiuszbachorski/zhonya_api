@@ -23,7 +23,7 @@ class TaskController extends Controller
             $tags = null;
         }
 
-        $tasks = $tasks->with('tags')->get();
+        $tasks = $tasks->with('tags')->orderBy('updated_at', 'desc')->get();
 
         return [
             'tasks' => $tasks,
