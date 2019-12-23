@@ -14,7 +14,7 @@ class TaskController extends Controller
 
         if ($request->has('search')) $tasks->search($request->query('search'));
         if ($request->has('active')) $tasks->active();
-        if ($request->has('tag')) $tasks->tag($request->query('tag'));
+        if ($request->has('tag')) $tasks->withTag($request->query('tag'));
 
         if ($request->has('withTags')) {
             $tags = auth()->user()->tags;
