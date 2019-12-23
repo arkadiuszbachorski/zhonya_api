@@ -39,11 +39,11 @@ class TagController extends Controller
 
     public function attachTasks(Tag $tag)
     {
-        $tags = auth()->user()->tasks()->get()->each(function (Task $task) use ($tag) {
+        $tasks = auth()->user()->tasks()->get()->each(function (Task $task) use ($tag) {
             $task->appendHasQueriedTagAttribute($tag->id);
         });
 
-        return $tags;
+        return $tasks;
     }
 
     public function update(TagRequest $request, Tag $tag)
