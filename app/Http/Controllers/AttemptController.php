@@ -6,6 +6,7 @@ use App\Attempt;
 use App\Http\Requests\AttemptRequest;
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AttemptController extends Controller
 {
@@ -31,6 +32,11 @@ class AttemptController extends Controller
     public function edit(Task $task, Attempt $attempt)
     {
         return $attempt;
+    }
+
+    public function name(Task $task, Attempt $attempt)
+    {
+        return Str::limit($attempt->description, 30);
     }
 
     public function update(Task $task, Attempt $attempt, AttemptRequest $request)
