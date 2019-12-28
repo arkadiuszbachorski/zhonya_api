@@ -29,7 +29,20 @@ class Attempt extends Model
 
     //region Mutators
 
+    public function scopeSearch($query, $value)
+    {
+        return $query->where(function ($query) use ($value) {
+            $query->where('description','LIKE', "%$value%");
+        });
+    }
 
+    public function scopeActive($query)
+    {
+        /*
+         * TODO: Implement active checking
+         * */
+        return $query;
+    }
 
     //endregion
 
