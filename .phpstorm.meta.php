@@ -5,13 +5,14 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2019-11-28 13:53:13.
+    * Generated on 2019-12-29 10:02:25.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
     */
     override(new \Illuminate\Contracts\Container\Container, map([
         '' => '@',
+        'Asm89\Stack\CorsService' => \Asm89\Stack\CorsService::class,
         'Facade\IgnitionContracts\SolutionProviderRepository' => \Facade\Ignition\SolutionProviders\SolutionProviderRepository::class,
         'Facade\Ignition\DumpRecorder\DumpRecorder' => \Facade\Ignition\DumpRecorder\DumpRecorder::class,
         'Facade\Ignition\ErrorPage\Renderer' => \Facade\Ignition\ErrorPage\Renderer::class,
@@ -36,8 +37,15 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Laravel\Telescope\Contracts\ClearableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\EntriesRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\PrunableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
@@ -164,6 +172,7 @@ namespace PHPSTORM_META {
     ]));
     override(\Illuminate\Container\Container::makeWith(0), map([
         '' => '@',
+        'Asm89\Stack\CorsService' => \Asm89\Stack\CorsService::class,
         'Facade\IgnitionContracts\SolutionProviderRepository' => \Facade\Ignition\SolutionProviders\SolutionProviderRepository::class,
         'Facade\Ignition\DumpRecorder\DumpRecorder' => \Facade\Ignition\DumpRecorder\DumpRecorder::class,
         'Facade\Ignition\ErrorPage\Renderer' => \Facade\Ignition\ErrorPage\Renderer::class,
@@ -188,8 +197,15 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Laravel\Telescope\Contracts\ClearableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\EntriesRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\PrunableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
@@ -316,6 +332,7 @@ namespace PHPSTORM_META {
     ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
+        'Asm89\Stack\CorsService' => \Asm89\Stack\CorsService::class,
         'Facade\IgnitionContracts\SolutionProviderRepository' => \Facade\Ignition\SolutionProviders\SolutionProviderRepository::class,
         'Facade\Ignition\DumpRecorder\DumpRecorder' => \Facade\Ignition\DumpRecorder\DumpRecorder::class,
         'Facade\Ignition\ErrorPage\Renderer' => \Facade\Ignition\ErrorPage\Renderer::class,
@@ -340,8 +357,15 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Laravel\Telescope\Contracts\ClearableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\EntriesRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\PrunableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
@@ -468,6 +492,7 @@ namespace PHPSTORM_META {
     ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
+        'Asm89\Stack\CorsService' => \Asm89\Stack\CorsService::class,
         'Facade\IgnitionContracts\SolutionProviderRepository' => \Facade\Ignition\SolutionProviders\SolutionProviderRepository::class,
         'Facade\Ignition\DumpRecorder\DumpRecorder' => \Facade\Ignition\DumpRecorder\DumpRecorder::class,
         'Facade\Ignition\ErrorPage\Renderer' => \Facade\Ignition\ErrorPage\Renderer::class,
@@ -492,8 +517,15 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Laravel\Telescope\Contracts\ClearableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\EntriesRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\PrunableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
@@ -620,6 +652,7 @@ namespace PHPSTORM_META {
     ]));
     override(\App::make(0), map([
         '' => '@',
+        'Asm89\Stack\CorsService' => \Asm89\Stack\CorsService::class,
         'Facade\IgnitionContracts\SolutionProviderRepository' => \Facade\Ignition\SolutionProviders\SolutionProviderRepository::class,
         'Facade\Ignition\DumpRecorder\DumpRecorder' => \Facade\Ignition\DumpRecorder\DumpRecorder::class,
         'Facade\Ignition\ErrorPage\Renderer' => \Facade\Ignition\ErrorPage\Renderer::class,
@@ -644,8 +677,15 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Laravel\Telescope\Contracts\ClearableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\EntriesRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\PrunableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
@@ -772,6 +812,7 @@ namespace PHPSTORM_META {
     ]));
     override(\App::makeWith(0), map([
         '' => '@',
+        'Asm89\Stack\CorsService' => \Asm89\Stack\CorsService::class,
         'Facade\IgnitionContracts\SolutionProviderRepository' => \Facade\Ignition\SolutionProviders\SolutionProviderRepository::class,
         'Facade\Ignition\DumpRecorder\DumpRecorder' => \Facade\Ignition\DumpRecorder\DumpRecorder::class,
         'Facade\Ignition\ErrorPage\Renderer' => \Facade\Ignition\ErrorPage\Renderer::class,
@@ -796,8 +837,15 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Laravel\Telescope\Contracts\ClearableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\EntriesRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\PrunableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
@@ -924,6 +972,7 @@ namespace PHPSTORM_META {
     ]));
     override(\app(0), map([
         '' => '@',
+        'Asm89\Stack\CorsService' => \Asm89\Stack\CorsService::class,
         'Facade\IgnitionContracts\SolutionProviderRepository' => \Facade\Ignition\SolutionProviders\SolutionProviderRepository::class,
         'Facade\Ignition\DumpRecorder\DumpRecorder' => \Facade\Ignition\DumpRecorder\DumpRecorder::class,
         'Facade\Ignition\ErrorPage\Renderer' => \Facade\Ignition\ErrorPage\Renderer::class,
@@ -948,8 +997,15 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Laravel\Telescope\Contracts\ClearableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\EntriesRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\PrunableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,
@@ -1076,6 +1132,7 @@ namespace PHPSTORM_META {
     ]));
     override(\resolve(0), map([
         '' => '@',
+        'Asm89\Stack\CorsService' => \Asm89\Stack\CorsService::class,
         'Facade\IgnitionContracts\SolutionProviderRepository' => \Facade\Ignition\SolutionProviders\SolutionProviderRepository::class,
         'Facade\Ignition\DumpRecorder\DumpRecorder' => \Facade\Ignition\DumpRecorder\DumpRecorder::class,
         'Facade\Ignition\ErrorPage\Renderer' => \Facade\Ignition\ErrorPage\Renderer::class,
@@ -1100,8 +1157,15 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'Laravel\Telescope\Contracts\ClearableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\EntriesRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'Laravel\Telescope\Contracts\PrunableRepository' => \Laravel\Telescope\Storage\DatabaseEntriesRepository::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
         'auth.driver' => \Illuminate\Auth\SessionGuard::class,

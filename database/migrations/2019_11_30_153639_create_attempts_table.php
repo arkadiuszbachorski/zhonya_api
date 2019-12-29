@@ -17,6 +17,8 @@ class CreateAttemptsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('task_id');
             $table->text('description');
+            $table->unsignedBigInteger('saved_relative_time')->default(0);
+            $table->timestamp('started_at')->nullable();
             $table->timestamps();
         });
     }

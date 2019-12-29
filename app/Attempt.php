@@ -11,10 +11,11 @@ class Attempt extends Model
 
     protected $guarded = [];
 
-    protected $hidden = ['task_id', 'created_at'];
+    protected $hidden = ['task_id', 'created_at', 'started_at', 'saved_relative_time'];
 
     protected $touches = ['task'];
 
+    protected $dates = ['started_at'];
     //endregion
 
     //region Logic
@@ -31,6 +32,26 @@ class Attempt extends Model
 
     //region Mutators
 
+    public function getActiveAttribute()
+    {
+        return $this->started_at !== null;
+    }
+
+    public function getRelativeTimeAttribute()
+    {
+        if (!$this->active) {
+            return $this->saved_relative_time;
+        }
+
+        $diff = now()->diffInSeconds($this->started_at);
+
+        return $this->saved_relative_time + $diff;
+    }
+
+    //endregion
+
+    //region Scopes
+
     public function scopeSearch($query, $value)
     {
         return $query->where(function ($query) use ($value) {
@@ -40,17 +61,8 @@ class Attempt extends Model
 
     public function scopeActive($query)
     {
-        /*
-         * TODO: Implement active checking
-         * */
-        return $query;
+        return $query->whereNotNull('started_at');
     }
-
-    //endregion
-
-    //region Scopes
-
-
 
     //endregion
 
@@ -61,10 +73,6 @@ class Attempt extends Model
         return $this->belongsTo(Task::class);
     }
 
-    public function measurements()
-    {
-        return $this->hasMany(Measurement::class);
-    }
 
     //endregion
 

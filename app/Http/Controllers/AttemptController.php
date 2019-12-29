@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attempt;
 use App\Http\Requests\AttemptRequest;
 use App\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -51,5 +52,31 @@ class AttemptController extends Controller
         $attempt->delete();
 
         return response()->noContent();
+    }
+
+    public function measurementSave(Task $task, Attempt $attempt, Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date',
+            'relative_time' => 'required|integer',
+        ]);
+
+        if ($attempt->active) {
+            $attempt->saved_relative_time = $request->get('relative_time');
+            $attempt->started_at = null;
+        } else {
+            $attempt->started_at = Carbon::parse($request->get('date'));
+        }
+
+        $attempt->save();
+
+        return response()->noContent();
+    }
+
+    public function measurement(Task $task, Attempt $attempt)
+    {
+        $attempt->append(['active', 'relative_time']);
+
+        return $attempt->only(['id', 'active', 'relative_time', 'started_at']);
     }
 }
