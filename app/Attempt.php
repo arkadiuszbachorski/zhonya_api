@@ -13,6 +13,8 @@ class Attempt extends Model
 
     protected $hidden = ['task_id', 'created_at'];
 
+    protected $touches = ['task'];
+
     //endregion
 
     //region Logic
