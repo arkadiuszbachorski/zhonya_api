@@ -43,8 +43,9 @@ class Task extends Model
 
     public function scopeActive($query)
     {
-        //todo: Find active elements
-        return $query;
+        return $query->whereHas('attempts', function ($query) {
+           $query->active();
+        });
     }
 
     public function scopeWithTag($query, $tagId)
