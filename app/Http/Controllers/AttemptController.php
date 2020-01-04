@@ -18,9 +18,7 @@ class AttemptController extends Controller
         if ($request->has('search')) $attempts->search($request->query('search'));
         if ($request->has('active')) $attempts->active();
 
-        $attempts = $attempts->get()->each(function (Attempt $attempt) {
-            $attempt->append(['active', 'relative_time']);
-        });
+        $attempts = $attempts->get()->appendToEach('active', 'relative_time');
 
         return $attempts;
     }
