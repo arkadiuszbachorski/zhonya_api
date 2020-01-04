@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class Task extends Model
 {
@@ -27,6 +26,19 @@ class Task extends Model
 
     //region Mutators
 
+    public function getAttemptsStatisticsAttribute()
+    {
+        $min = $this->attempts()->min('saved_relative_time');
+        $max = $this->attempts()->max('saved_relative_time');
+        $avg = $this->attempts()->avg('saved_relative_time');
+
+        return compact('min', 'max', 'avg');
+    }
+
+    public function getTagsColorsAttribute()
+    {
+        return $this->tags()->pluck('color');
+    }
 
 
     //endregion
@@ -43,8 +55,9 @@ class Task extends Model
 
     public function scopeActive($query)
     {
-        //todo: Find active elements
-        return $query;
+        return $query->whereHas('attempts', function ($query) {
+           $query->active();
+        });
     }
 
     public function scopeWithTag($query, $tagId)

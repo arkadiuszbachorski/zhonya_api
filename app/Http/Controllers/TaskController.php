@@ -23,7 +23,9 @@ class TaskController extends Controller
             $tags = null;
         }
 
-        $tasks = $tasks->with('tags')->orderBy('updated_at', 'desc')->get();
+        $tasks = $tasks->orderBy('updated_at', 'desc')
+            ->get()
+            ->appendToEach('attempts_statistics', 'tags_colors');
 
         return [
             'tasks' => $tasks,

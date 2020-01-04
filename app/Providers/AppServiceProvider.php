@@ -8,6 +8,7 @@ use App\Observers\UserObserver;
 use App\Tag;
 use App\Task;
 use App\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,7 +20,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Collection::macro('appendToEach', function () {
+            $fields = func_get_args();
+
+            return $this->each(function ($model) use ($fields) {
+               $model->append(...$fields);
+            });
+        });
     }
 
     /**
