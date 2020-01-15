@@ -52,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::group([
             'namespace' => $this->namespace,
             'prefix' => 'api',
-            'middleware' => 'api',
+            'middleware' => ['api', 'locale'],
         ], function () {
 
             Route::prefix('auth')
