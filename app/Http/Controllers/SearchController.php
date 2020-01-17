@@ -31,9 +31,11 @@ class SearchController extends Controller
 
         $tags = $tags->withCount('tasks')
             ->orderBy('tasks_count', 'DESC')
+            ->limit(15)
             ->get();
 
         $tasks = $tasks->orderBy('updated_at', 'DESC')
+            ->limit(15)
             ->get();
 
         return compact('tags', 'tasks');
