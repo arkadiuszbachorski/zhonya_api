@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class Tag extends Model
 {
@@ -28,7 +28,10 @@ class Tag extends Model
 
     //region Mutators
 
-
+    public function getShortDescriptionAttribute()
+    {
+        return Str::limit($this->description, 80);
+    }
 
     //endregion
 

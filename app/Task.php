@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Task extends Model
 {
@@ -38,6 +39,11 @@ class Task extends Model
     public function getTagsColorsAttribute()
     {
         return $this->tags()->pluck('color');
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return Str::limit($this->description, 60);
     }
 
 
