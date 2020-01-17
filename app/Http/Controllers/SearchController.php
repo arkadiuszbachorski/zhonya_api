@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SearchController extends Controller
 {
@@ -14,15 +15,25 @@ class SearchController extends Controller
 
         $search = $request->query('search');
 
-        $tags = auth()->user()->tags()
-            ->search($search)
-            ->withCount('tasks')
+        $tags = auth()->user()->tags();
+        $tasks = auth()->user()->tasks();
+
+        if (Str::startsWith($search, '#')) {
+            $search = substr($search, 1);
+            $tags->search($search);
+            $tasks->whereHas('tags', function ($query) use ($search) {
+                $query->where('name', 'LIKE',"%$search%");
+            });
+        } else {
+            $tags->search($search);
+            $tasks->search($search);
+        }
+
+        $tags = $tags->withCount('tasks')
             ->orderBy('tasks_count', 'DESC')
             ->get();
 
-        $tasks = auth()->user()->tasks()
-            ->search($search)
-            ->orderBy('updated_at', 'DESC')
+        $tasks = $tasks->orderBy('updated_at', 'DESC')
             ->get();
 
         return compact('tags', 'tasks');
