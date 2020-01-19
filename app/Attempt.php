@@ -54,10 +54,6 @@ class Attempt extends Model
         return Str::limit($this->description, 60);
     }
 
-    public function getTaskNameAttribute()
-    {
-        return $this->task->name;
-    }
 
     //endregion
 
