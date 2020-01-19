@@ -62,7 +62,7 @@ class Attempt extends Model
     public function scopeSearch($query, $value)
     {
         return $query->where(function ($query) use ($value) {
-            $query->where('description','LIKE', "%$value%");
+            $query->where('attempts.description','LIKE', "%$value%");
         });
     }
 
