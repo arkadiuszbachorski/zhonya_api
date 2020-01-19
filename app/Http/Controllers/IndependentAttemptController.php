@@ -15,15 +15,26 @@ class IndependentAttemptController extends Controller
     {
         $attempts = auth()->user()->attempts()->with('task');
 
+        if ($request->has('withTasks')) {
+            $tasks = auth()->user()->tasks()->has('attempts')
+                ->get(['tasks.name', 'tasks.id']);
+        } else {
+            $tasks = null;
+        }
+
         if ($request->has('task')) $attempts->where('task_id', $request->query('task'));
         if ($request->has('search')) $attempts->search($request->query('search'));
         if ($request->has('active')) $attempts->active();
 
-        $attempts = $attempts->get()
-            ->hideInEach('laravel_through_key', 'description', 'task')
-            ->appendToEach('short_description', 'task_name');
+        $attempts = $attempts->orderBy('updated_at', 'desc')
+            ->get()
+            ->each(function ($attempt) {
+                $attempt->append('short_description', 'relative_time');
+                $attempt->addHidden('laravel_through_key', 'description');
+                $attempt->task->addHidden('description', 'updated_at');
+            });
 
-        return $attempts;
+        return compact('attempts', 'tasks');
     }
 
     public function create()
