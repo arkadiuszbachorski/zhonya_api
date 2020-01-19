@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
+
+    public function attempts()
+    {
+        return $this->hasManyThrough(Attempt::class, Task::class);
+    }
 }
