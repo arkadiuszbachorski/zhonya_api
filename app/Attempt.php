@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Attempt extends Model
 {
@@ -46,6 +47,16 @@ class Attempt extends Model
         $diff = now()->diffInSeconds($this->started_at);
 
         return $this->saved_relative_time + $diff;
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return Str::limit($this->description, 60);
+    }
+
+    public function getTaskNameAttribute()
+    {
+        return $this->task->name;
     }
 
     //endregion
