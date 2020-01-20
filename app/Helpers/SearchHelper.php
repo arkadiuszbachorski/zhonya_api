@@ -11,6 +11,11 @@ class SearchHelper
 
     const SCORE_LIMIT = 15;
 
+    const PARAMS = [
+        'active' => '-a=',
+        'tag' => '-t=',
+    ];
+
     public function __construct(string $search, User $user)
     {
         $this->search = $search;
@@ -23,8 +28,8 @@ class SearchHelper
 
     protected function determineSearchType()
     {
-        if (Str::startsWith($this->search, '#')) {
-            $this->search = substr($this->search, 1);
+        if (Str::startsWith($this->search, self::PARAMS['tag'])) {
+            $this->search = Str::after($this->search, self::PARAMS['tag']);
             $this->searchTasksInTags();
         } else {
             $this->searchNormal();
