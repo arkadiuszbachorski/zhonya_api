@@ -49,10 +49,13 @@ class SearchHelper
         $this->tasks->whereHas('tags', function ($query) {
             $query->where('name', 'LIKE',"%$this->search%");
         });
+        $this->attempts = [];
     }
 
     protected function getTags()
     {
+        if ($this->tags === []) return;
+
         $this->tags = $this->tags->withCount('tasks')
             ->orderBy('tasks_count', 'DESC')
             ->limit(self::SCORE_LIMIT)
@@ -61,6 +64,8 @@ class SearchHelper
 
     protected function getTasks()
     {
+        if ($this->tasks === []) return;
+
         $this->tasks = $this->tasks->orderBy('updated_at', 'DESC')
             ->limit(self::SCORE_LIMIT)
             ->get();
@@ -68,6 +73,8 @@ class SearchHelper
 
     protected function getAttempts()
     {
+        if ($this->attempts === []) return;
+
         $this->attempts = $this->attempts
             ->with('task')
             ->orderBy('updated_at', 'desc')
