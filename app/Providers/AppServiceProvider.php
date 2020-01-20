@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             $fields = func_get_args();
 
             return $this->each(function ($model) use ($fields) {
-                $model->makeHidden(...$fields);
+                $model->addHidden(...$fields);
             });
         });
     }

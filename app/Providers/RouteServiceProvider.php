@@ -76,6 +76,9 @@ class RouteServiceProvider extends ServiceProvider
                     ->middleware(['can:manage,task'])
                     ->group($this->apiRoutesFile('attempt'));
 
+                Route::prefix('independent-attempt')
+                    ->group($this->apiRoutesFile('independent-attempt'));
+
                 Route::prefix('search')
                     ->group($this->apiRoutesFile('search'));
             });

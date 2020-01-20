@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Attempt extends Model
 {
@@ -48,6 +49,12 @@ class Attempt extends Model
         return $this->saved_relative_time + $diff;
     }
 
+    public function getShortDescriptionAttribute()
+    {
+        return Str::limit($this->description, 60);
+    }
+
+
     //endregion
 
     //region Scopes
@@ -55,7 +62,7 @@ class Attempt extends Model
     public function scopeSearch($query, $value)
     {
         return $query->where(function ($query) use ($value) {
-            $query->where('description','LIKE', "%$value%");
+            $query->where('attempts.description','LIKE', "%$value%");
         });
     }
 
