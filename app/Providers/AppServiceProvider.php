@@ -27,6 +27,14 @@ class AppServiceProvider extends ServiceProvider
                $model->append(...$fields);
             });
         });
+
+        Collection::macro('hideInEach', function () {
+            $fields = func_get_args();
+
+            return $this->each(function ($model) use ($fields) {
+                $model->addHidden(...$fields);
+            });
+        });
     }
 
     /**

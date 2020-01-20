@@ -11,11 +11,15 @@ class TagController extends Controller
 {
     public function index(Request $request)
     {
-        $tags = auth()->user()->tags()->withCount('tasks');
+        $tags = auth()->user()->tags();
 
         if ($request->has('search')) $tags->search($request->query('search'));
 
-        $tags = $tags->orderBy('tasks_count', 'desc')->get();
+        $tags = $tags->withCount('tasks')
+            ->orderBy('tasks_count', 'desc')
+            ->get()
+            ->hideInEach('description')
+            ->appendToEach('short_description');
 
         return $tags;
     }
