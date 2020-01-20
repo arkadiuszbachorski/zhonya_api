@@ -31,6 +31,9 @@ class SearchHelper
         if (Str::startsWith($this->search, self::PARAMS['tag'])) {
             $this->search = Str::after($this->search, self::PARAMS['tag']);
             $this->searchTasksInTags();
+        } elseif (Str::startsWith($this->search, self::PARAMS['active'])) {
+            $this->search = Str::after($this->search, self::PARAMS['active']);
+            $this->searchActive();
         } else {
             $this->searchNormal();
         }
@@ -50,6 +53,13 @@ class SearchHelper
             $query->where('name', 'LIKE',"%$this->search%");
         });
         $this->attempts = [];
+    }
+
+    protected function searchActive()
+    {
+        $this->tasks->active()->search($this->search);
+        $this->attempts->active()->search($this->search);
+        $this->tags = [];
     }
 
     protected function getTags()
