@@ -29,7 +29,7 @@ class IndependentAttemptController extends Controller
         $attempts = $attempts->orderBy('updated_at', 'desc')
             ->get()
             ->each(function ($attempt) {
-                $attempt->append('short_description', 'relative_time');
+                $attempt->append('short_description', 'relative_time', 'active');
                 $attempt->addHidden('laravel_through_key', 'description');
                 $attempt->task->addHidden('description', 'updated_at');
             });
