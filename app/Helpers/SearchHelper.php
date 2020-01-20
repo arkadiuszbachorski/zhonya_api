@@ -91,7 +91,7 @@ class SearchHelper
             ->get()
             ->each(function ($attempt) {
                 $attempt->append('short_description', 'relative_time');
-                $attempt->addHidden('laravel_through_key', 'description', 'updated_at');
+                $attempt->addHidden('laravel_through_key', 'description');
                 $attempt->task->addHidden('description', 'updated_at');
             });
     }
