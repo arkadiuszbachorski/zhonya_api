@@ -27,6 +27,11 @@ class Task extends Model
 
     //region Mutators
 
+    public function getActiveAttribute()
+    {
+        return $this->attempts()->active()->exists();
+    }
+
     public function getAttemptsStatisticsAttribute()
     {
         $min = $this->attempts()->min('saved_relative_time');
