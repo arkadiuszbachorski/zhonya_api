@@ -24,8 +24,9 @@ class TaskController extends Controller
         }
 
         $tasks = $tasks->orderBy('updated_at', 'desc')
+            ->with('attempts')
             ->get()
-            ->appendToEach('attempts_statistics', 'tags_colors', 'short_description')
+            ->appendToEach('attempts_statistics', 'tags_colors', 'short_description', 'active')
             ->hideInEach('description');
 
         return [
