@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c65059a5e0ab65cb75a0f61ba7f7fcc",
+    "content-hash": "e945b1bd94ac63c857acc1b1111282e7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -63,12 +63,12 @@
             "version": "v0.11.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/barryvdh/laravel-cors.git",
+                "url": "https://github.com/fruitcake/laravel-cors.git",
                 "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-cors/zipball/03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
+                "url": "https://api.github.com/repos/fruitcake/laravel-cors/zipball/03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
                 "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
                 "shasum": ""
             },
@@ -1615,6 +1615,7 @@
                 "bcmath",
                 "math"
             ],
+            "abandoned": "brick/math",
             "time": "2017-02-16T16:54:46+00:00"
         },
         {
@@ -4095,10 +4096,63 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2019-11-13T19:16:13+00:00"
         }
     ],
     "packages-dev": [
+        {
+            "name": "arkadiuszbachorski/laravel-xmake",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arkadiuszbachorski/laravel-xmake.git",
+                "reference": "c67a498525ecc3423017b0a06b30ffa5afe94a06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arkadiuszbachorski/laravel-xmake/zipball/c67a498525ecc3423017b0a06b30ffa5afe94a06",
+                "reference": "c67a498525ecc3423017b0a06b30ffa5afe94a06",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.8",
+                "php": "^7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ArkadiuszBachorski\\Xmake\\XmakeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ArkadiuszBachorski\\Xmake\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arkadiusz Bachorski",
+                    "email": "quez2223@gmail.com"
+                }
+            ],
+            "description": "Extended Laravel Artisan Make Command",
+            "homepage": "https://github.com/arkadiuszbachorski/xmake",
+            "keywords": [
+                "artisan",
+                "command",
+                "laravel",
+                "make",
+                "xmake"
+            ],
+            "time": "2020-01-29T16:20:16+00:00"
+        },
         {
             "name": "barryvdh/laravel-ide-helper",
             "version": "v2.6.5",
@@ -6049,36 +6103,6 @@
             "time": "2019-11-06T09:42:23+00:00"
         },
         {
-            "name": "quez/xmake",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://quez2223@bitbucket.org/quez2223/xmake.git",
-                "reference": "b9424835f745436ab1f2a138dccd573d23804cc4"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Quez\\Xmake\\XmakeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Quez\\Xmake\\": "src/"
-                }
-            },
-            "authors": [
-                {
-                    "name": "Arkadiusz Bachorski",
-                    "email": "quez2223@gmail.com"
-                }
-            ],
-            "description": "Extended Laravel Artisan Make Command",
-            "time": "2019-07-04T09:28:17+00:00"
-        },
-        {
             "name": "scrivo/highlight.php",
             "version": "v9.15.10.0",
             "source": {
@@ -6994,9 +7018,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "quez/xmake": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
