@@ -81,6 +81,9 @@ class RouteServiceProvider extends ServiceProvider
 
                 Route::prefix('search')
                     ->group($this->apiRoutesFile('search'));
+
+                Route::prefix('dashboard')
+                    ->group($this->apiRoutesFile('dashboard'));
             });
 
 
