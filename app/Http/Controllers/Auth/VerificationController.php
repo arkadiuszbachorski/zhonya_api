@@ -3,19 +3,34 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
-use Illuminate\Auth\Events\Registered;
+use App\Notifications\VerifyUser;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
     public function send()
     {
-        $email = auth()->user()->email;
+        $user = Auth::user();
 
+        $user->generateVerificationToken();
 
+        $user->notify(new VerifyUser());
+    }
+
+    public function verify(Request $request)
+    {
+        $request->validate([
+            'verification_token' => 'string|required'
+        ]);
+
+        $user = Auth::user();
+
+        if ($user->verification_token !== $request->verification_token) {
+            throw new AuthorizationException;
+        }
+
+        $user->verify();
     }
 }
