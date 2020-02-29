@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password'
+        'email', 'password', 'verification_token', 'verified'
     ];
 
     /**
@@ -26,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'verification_token'
     ];
 
     /**
@@ -37,6 +38,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function generateVerificationToken()
+    {
+        $token = Str::random(60);
+
+        $this->verification_token = $token;
+        $this->verified = false;
+        $this->save();
+
+        return $token;
+    }
+
+    public function verify()
+    {
+        $this->verification_token = null;
+        $this->verified = false;
+
+        $this->save();
+    }
 
     public function tags()
     {
