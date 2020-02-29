@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -56,6 +58,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'scope' => $user->scope,
+            'email_verified_at' => $user->email_verified_at,
         ]);
     }
 
@@ -72,10 +75,10 @@ class AuthController extends Controller
 
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
-
         return response()->json([
             'access_token' => $token,
             'scope' => $user->scope,
+            'email_verified_at' => $user->email_verified_at,
         ]);
     }
 
