@@ -59,7 +59,7 @@ class LoginController extends Controller
         return response()->json([
             'access_token' => $token,
             'scope' => $user->scope,
-            'email_verified_at' => $user->email_verified_at,
+            'verified' => $user->verified,
         ]);
     }
 }

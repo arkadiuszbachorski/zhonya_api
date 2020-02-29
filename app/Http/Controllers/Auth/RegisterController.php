@@ -20,6 +20,7 @@ class RegisterController extends Controller
         ]);
 
         $data['password'] = Hash::make($data['password']);
+        $data['verified'] = false;
 
         $user = User::create($data);
 
@@ -28,7 +29,7 @@ class RegisterController extends Controller
         return response()->json([
             'access_token' => $token,
             'scope' => $user->scope,
-            'email_verified_at' => $user->email_verified_at,
+            'verified' => $user->verified,
         ]);
     }
 }
