@@ -30,6 +30,10 @@ class User extends Authenticatable
         'password', 'remember_token', 'verification_token'
     ];
 
+    protected $dates = [
+        'delete_token_generated_at',
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -41,21 +45,20 @@ class User extends Authenticatable
 
     public function generateVerificationToken()
     {
-        $token = Str::random(60);
-
-        $this->verification_token = $token;
+        $this->verification_token = Str::random(60);
         $this->verified = false;
-        $this->save();
-
-        return $token;
     }
 
     public function verify()
     {
         $this->verification_token = null;
         $this->verified = true;
+    }
 
-        $this->save();
+    public function generateDeleteToken()
+    {
+        $this->delete_token = Str::random(60);
+        $this->delete_token_generated_at = now();
     }
 
     public function tags()

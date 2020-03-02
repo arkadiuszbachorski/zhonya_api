@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 
-class VerifyUser extends Notification
+class DeleteUser extends Notification
 {
     use Queueable;
 
@@ -41,13 +41,12 @@ class VerifyUser extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = env('FRONTEND_URL').'/verify/'.$notifiable->verification_token;
+        $url = env('FRONTEND_URL').'/delete/'.$notifiable->delete_token;
 
         return (new MailMessage)
-            ->subject(Lang::get('emails.verify.subject'))
-            ->line(Lang::get('emails.verify.click'))
-            ->action(Lang::get('emails.verify.button'), $url)
-            ->line(Lang::get('emails.verify.notCreated'));
+            ->subject(Lang::get('emails.delete.subject'))
+            ->line(Lang::get('emails.delete.click'))
+            ->action(Lang::get('emails.delete.button'), $url);
     }
 
     /**

@@ -15,6 +15,7 @@ class VerificationController extends Controller
         $user = Auth::user();
 
         $user->generateVerificationToken();
+        $user->save();
 
         $user->notify(new VerifyUser());
     }
@@ -32,5 +33,6 @@ class VerificationController extends Controller
         }
 
         $user->verify();
+        $user->save();
     }
 }
