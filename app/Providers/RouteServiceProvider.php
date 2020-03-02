@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Notifications\VerifyUser;
+use App\User;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +39,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
+        Route::get('/test', function() {
+            $message = (new VerifyUser())->toMail(User::first());
+            return $message->render();
+        });
     }
 
 

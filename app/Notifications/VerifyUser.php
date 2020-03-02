@@ -41,13 +41,14 @@ class VerifyUser extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = env('FRONTEND_HOST').'/verify/'.$notifiable->verification_token;
+        $url = env('FRONTEND_VERIFY').$notifiable->verification_token;
 
         return (new MailMessage)
-            ->subject(Lang::get('Verify Email Address'))
-            ->line(Lang::get('Please click the button below to verify your email address.'))
-            ->action(Lang::get('Verify Email Address'), $url)
-            ->line(Lang::get('If you did not create an account, no further action is required.'));
+            ->subject(Lang::get('emails.verify.subject'))
+            ->line(Lang::get('emails.verify.thank'))
+            ->line(Lang::get('emails.verify.click'))
+            ->action(Lang::get('emails.verify.button'), $url)
+            ->line(Lang::get('emails.verify.notCreated'));
     }
 
     /**

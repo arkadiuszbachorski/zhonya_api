@@ -2,6 +2,13 @@
 
 return [
 
+    'greeting' => [
+        'error' => 'Whoops!',
+        'normal' => 'Hello!',
+    ],
+    'salutation' => 'Regards',
+    'actionText' => "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
+        'into your web browser: [:actionURL](:actionURL)',
     'verify' => [
         'subject' => 'Verify your Zhonya account',
         'thank' => 'Thank you for registering!',

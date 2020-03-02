@@ -2,6 +2,13 @@
 
 return [
 
+    'greeting' => [
+        'error' => 'Ups!',
+        'normal' => 'Witaj!',
+    ],
+    'salutation' => 'Z pozdrowieniami',
+    'actionText' => "Jeśli masz problem z wciśnięciem \":actionText\", skopiuj i wklej poniższy adres URL\n".
+        'do swojej przeglądarki: [:actionURL](:actionURL)',
     'verify' => [
         'subject' => 'Zweryfikuj swoje konto Zhonya',
         'thank' => 'Dziękujemy za rejestrację',
