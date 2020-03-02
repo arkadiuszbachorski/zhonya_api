@@ -53,7 +53,7 @@ class User extends Authenticatable
     public function verify()
     {
         $this->verification_token = null;
-        $this->verified = false;
+        $this->verified = true;
 
         $this->save();
     }
