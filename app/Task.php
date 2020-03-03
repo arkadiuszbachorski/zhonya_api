@@ -36,7 +36,11 @@ class Task extends Model
     {
         $min = $this->attempts()->min('saved_relative_time');
         $max = $this->attempts()->max('saved_relative_time');
-        $avg = round($this->attempts()->avg('saved_relative_time'));
+        $avg = $this->attempts()->avg('saved_relative_time');
+
+        if ($avg !== null) {
+            $avg = round($avg);
+        }
 
         return compact('min', 'max', 'avg');
     }

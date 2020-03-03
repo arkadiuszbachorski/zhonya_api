@@ -3,39 +3,36 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\VerifiesEmails;
+use App\Notifications\VerifyUser;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Email Verification Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling email verification for any
-    | user that recently registered with the application. Emails may also
-    | be re-sent if the user didn't receive the original email message.
-    |
-    */
-
-    use VerifiesEmails;
-
-    /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function send()
     {
-        $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+        $user = Auth::user();
+
+        $user->generateVerificationToken();
+        $user->save();
+
+        $user->notify(new VerifyUser());
+    }
+
+    public function verify(Request $request)
+    {
+        $request->validate([
+            'verification_token' => 'string|required'
+        ]);
+
+        $user = Auth::user();
+
+        if ($user->verification_token !== $request->verification_token) {
+            throw new AuthorizationException;
+        }
+
+        $user->verify();
+        $user->save();
     }
 }

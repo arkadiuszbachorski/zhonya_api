@@ -2,4 +2,5 @@
 
 Route::put('password', 'UserController@updatePassword');
 Route::put('email', 'UserController@updateEmail');
-Route::delete('', 'UserController@destroy');
+Route::post('send-delete', 'UserController@sendDelete');
+Route::post('delete', 'UserController@destroy');
