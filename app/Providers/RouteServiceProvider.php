@@ -64,7 +64,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('auth')
                 ->group($this->apiRoutesFile('auth'));
 
-            Route::group(['middleware' => 'auth:api'], function () {
+            Route::group(['middleware' => ['auth:api', 'user.verified']], function () {
                 Route::prefix('user')
                     ->group($this->apiRoutesFile('user'));
 
