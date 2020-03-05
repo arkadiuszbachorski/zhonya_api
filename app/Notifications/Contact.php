@@ -46,7 +46,7 @@ class Contact extends Notification
                     ->subject('Otrzymałeś wiadomość kontatkową z Zhonya')
                     ->line("Imię: {$this->data['name']}")
                     ->line("Email kontaktowy: {$this->data['email']}")
-                    ->line($this->data['content']);
+                    ->line($this->data['message']);
     }
 
     /**

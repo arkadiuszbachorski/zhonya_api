@@ -13,7 +13,7 @@ class ContactController extends Controller
         $data = $request->validate([
             'name' => ['string','required'],
             'email'=> ['email','required'],
-            'content' => ['required'],
+            'message' => ['required'],
         ]);
 
         Notification::route('mail', 'quez2223@gmail.com')
