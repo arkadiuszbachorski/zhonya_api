@@ -153,5 +153,6 @@ return [
         'new_password' => 'nowe hasło',
         'email' => 'email',
         'password' => 'hasło',
+        'message' => 'wiadomość',
     ],
 ];
