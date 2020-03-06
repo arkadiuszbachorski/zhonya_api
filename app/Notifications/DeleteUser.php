@@ -41,7 +41,7 @@ class DeleteUser extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = env('FRONTEND_URL').'/delete/'.$notifiable->delete_token;
+        $url = env('FRONTEND_URL').'/user/delete/'.$notifiable->delete_token;
 
         return (new MailMessage)
             ->subject(Lang::get('emails.delete.subject'))
