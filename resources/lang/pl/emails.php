@@ -20,4 +20,8 @@ return [
         'click' => 'Czy na pewno chcesz usunąć swoje konto? Ten proces jest nieodwracalny!',
         'button' => 'Usuń konto',
     ],
+    'passwordReset' => [
+        'subject' => 'Zresetuj swoje hasło Zhonya',
+        'instruction' => 'Wykorzystaj poniższe hasło by się zalogować, a następnie możesz je zmienić z poziomu profilu.'
+    ]
 ];
