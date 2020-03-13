@@ -20,4 +20,8 @@ return [
         'click' => 'Are you sure you want to delete your account? This process cannot be undone',
         'button' => 'Delete account',
     ],
+    'passwordReset' => [
+        'subject' => 'Reset your Zhonya password',
+        'instruction' => 'Use password below to log in. You can change it in your profile.'
+    ]
 ];
