@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\FacebookAuth;
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -52,6 +50,29 @@ class LoginController extends Controller
         }
 
         $data = json_decode($response->getBody()->getContents());*/
+
+        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+
+
+        return response()->json([
+            'access_token' => $token,
+            'scope' => $user->scope,
+            'verified' => $user->verified,
+        ]);
+    }
+
+    public function loginFacebook(Request $request)
+    {
+        $request->validate([
+            'email' => ['required'],
+            'access_token' => ['required'],
+        ]);
+
+        if (!(new FacebookAuth())->checkIfTokenIsValid($request->input('access_token'))) {
+            abort(403);
+        }
+
+        $user = User::where('email', $request->input('email'))->firstOrFail();
 
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
