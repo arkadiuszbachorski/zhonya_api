@@ -14,7 +14,8 @@
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.0",
         "laravel/telescope": "^2.1",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "arkadiuszbachorski/laravel-xmake": "^1.0",
