@@ -71,6 +71,16 @@ class Attempt extends Model
         return $query->whereNotNull('started_at');
     }
 
+    public function scopeNotActive($query)
+    {
+        return $query->whereNull('started_at');
+    }
+
+    public function scopeCountable($query)
+    {
+        $query->notActive()->where('saved_relative_time', '!=', 0);
+    }
+
     //endregion
 
     //region Relationships
