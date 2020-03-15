@@ -45,17 +45,23 @@ class CollectionServiceProvider extends ServiceProvider
         Collection::macro('quartiles', function ($key = null) {
             $length = $this->count();
 
-            $chunked = $this->chunk(ceil($length / 2));
+            if ($length < 4) {
+                $q1 = null;
+                $q2 = null;
+                $q3 = null;
+            } else {
+                $chunked = $this->chunk((int)ceil($length / 2));
 
-            $firstHalf = $chunked->get(0)->values();
-            if ($length % 2 !== 0) {
-                $firstHalf->pop();
+                $firstHalf = $chunked->get(0)->values();
+                if ($length % 2 !== 0) {
+                    $firstHalf->pop();
+                }
+                $secondHalf = $chunked->get(1)->values();
+
+                $q1 = $firstHalf->median($key);
+                $q2 = $this->median($key);
+                $q3 = $secondHalf->median($key);
             }
-            $secondHalf = $chunked->get(1)->values();
-
-            $q1 = $firstHalf->median($key);
-            $q2 = $this->median($key);
-            $q3 = $secondHalf->median($key);
 
             return compact('q1', 'q2', 'q3');
         });
