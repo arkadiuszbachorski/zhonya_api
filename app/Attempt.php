@@ -12,7 +12,7 @@ class Attempt extends Model
 
     protected $guarded = [];
 
-    protected $hidden = ['task_id', 'created_at', 'started_at', 'saved_relative_time'];
+    protected $hidden = ['task_id', 'started_at', 'saved_relative_time'];
 
     protected $touches = ['task'];
 
