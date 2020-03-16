@@ -24,7 +24,7 @@ class AttemptRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => ['required'],
+            'description' => ['nullable', 'string'],
         ];
     }
 }

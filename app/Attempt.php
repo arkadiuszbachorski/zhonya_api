@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
 
 class Attempt extends Model
@@ -28,6 +29,12 @@ class Attempt extends Model
         $this->setHidden($new);
     }
 */
+
+    public function generateDescription($add = 0)
+    {
+        $length = $this->task->attempts()->count();
+        $this->description = Lang::get('other.attempt').' '.($length+$add);
+    }
 
     //endregion
 
