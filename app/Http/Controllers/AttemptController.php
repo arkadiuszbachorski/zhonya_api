@@ -58,11 +58,14 @@ class AttemptController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-            'relative_time' => 'required|integer',
+            'relative_time' => 'nullable|integer',
         ]);
 
-        if ($attempt->active) {
+        if ($attempt->active && $request->has('relative_time')) {
             $attempt->saved_relative_time = $request->get('relative_time');
+            $attempt->started_at = null;
+        } else if ($attempt->active)  {
+            $attempt->saved_relative_time = Carbon::parse($request->get('date'))->diffInSeconds($attempt->started_at);
             $attempt->started_at = null;
         } else {
             $attempt->started_at = Carbon::parse($request->get('date'));
