@@ -33,11 +33,17 @@ class CollectionServiceProvider extends ServiceProvider
         Collection::macro('standardDeviation', function ($key = null, $average = null) {
             $values = isset($key) ? $this->pluck($key) : $this;
 
+            $length = $this->count();
+
+            if ($length === 0) {
+                return null;
+            }
+
             $average = $average ?? $values->avg();
 
             $variance = $values->reduce(function ($carry, $item) use ($average, $key) {
                     return $carry + pow($item - $average, 2);
-                }, 0) / $this->count();
+                }, 0) / $length;
 
             return sqrt($variance);
         });
