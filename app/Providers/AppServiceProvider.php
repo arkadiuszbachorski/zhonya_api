@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Attempt;
+use App\Observers\AttemptObserver;
 use App\Observers\TagObserver;
 use App\Observers\TaskObserver;
 use App\Observers\UserObserver;
@@ -33,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
         Tag::observe(TagObserver::class);
         Task::observe(TaskObserver::class);
         User::observe(UserObserver::class);
+        Attempt::observe(AttemptObserver::class);
     }
 }
