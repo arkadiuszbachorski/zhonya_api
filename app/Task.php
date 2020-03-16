@@ -12,7 +12,7 @@ class Task extends Model
 
     protected $guarded = [];
 
-    protected $hidden = ['user_id', 'created_at', 'pivot'];
+    protected $hidden = ['user_id', 'created_at', 'pivot', 'time_max', 'time_min', 'time_avg', 'time_quartiles', 'time_sorted', 'time_quartiles', 'time_standard_deviation', 'time_sorted'];
 
     //endregion
 
@@ -32,17 +32,76 @@ class Task extends Model
         return $this->attempts()->active()->exists();
     }
 
-    public function getAttemptsStatisticsAttribute()
+    public function getTimeMaxAttribute()
     {
-        $min = $this->attempts()->min('saved_relative_time');
-        $max = $this->attempts()->max('saved_relative_time');
-        $avg = $this->attempts()->avg('saved_relative_time');
+        return $this->attempts()->countable()->max('saved_relative_time');
+    }
 
-        if ($avg !== null) {
-            $avg = round($avg);
+    public function getTimeMinAttribute()
+    {
+        return $this->attempts()->countable()->min('saved_relative_time');
+    }
+
+    public function getTimeAvgAttribute()
+    {
+        $avg = $this->attempts()->countable()->avg('saved_relative_time');
+
+        return $avg !== null ? round($avg) : null;
+    }
+
+    public function getTimeQuartilesAttribute()
+    {
+        $quartiles = $this->time_sorted->quartiles();
+
+        foreach ($quartiles as $key => $item) {
+            $quartiles[$key] = round($item);
         }
 
+        return $quartiles;
+    }
+
+    public function getTimeStandardDeviationAttribute()
+    {
+        $standardDeviation = $this->time_sorted->standardDeviation();
+
+        return $standardDeviation !== null ? round($standardDeviation) : null;
+    }
+
+    public function getTimeSortedAttribute()
+    {
+        return $this->attempts()
+            ->countable()
+            ->get('saved_relative_time')
+            ->pluck('saved_relative_time')
+            ->sort()
+            ->values();
+    }
+
+    public function getTimeStatisticsAttribute()
+    {
+        $min = $this->time_min;
+        $max = $this->time_max;
+        $avg = $this->time_avg;
+
         return compact('min', 'max', 'avg');
+    }
+
+    public function getTimeStatisticsFullAttribute()
+    {
+        if ($this->time_sorted->count() === 0) {
+            return null;
+        }
+        $min = $this->time_min;
+        $max = $this->time_max;
+        $avg = $this->time_avg;
+        $range = $max - $min;
+        $standardDeviation = $this->time_standard_deviation;
+        $quartiles = $this->time_quartiles;
+        $coefficientOfVariation = $standardDeviation / $avg;
+
+
+
+        return compact('min', 'max', 'avg', 'range', 'standardDeviation', 'coefficientOfVariation', 'quartiles');
     }
 
     public function getTagsColorsAttribute()
