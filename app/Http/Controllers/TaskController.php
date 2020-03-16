@@ -26,7 +26,7 @@ class TaskController extends Controller
         $tasks = $tasks->orderBy('updated_at', 'desc')
             ->with('attempts')
             ->get()
-            ->appendToEach('attempts_statistics', 'tags_colors', 'short_description', 'active')
+            ->appendToEach('time_statistics', 'tags_colors', 'short_description', 'active')
             ->hideInEach('description');
 
         return [
@@ -40,6 +40,18 @@ class TaskController extends Controller
         $task = auth()->user()->tasks()->create($request->validated());
 
         return $task->id;
+    }
+
+    public function data(Task $task)
+    {
+        $task->load(['attempts' => function ($query) {
+            $query->countable();
+        }]);
+        $task->append('time_statistics_full');
+
+        $task->attempts->hideInEach('updated_at', 'description', 'name')->appendToEach('relative_time','short_description');
+
+        return $task;
     }
 
     public function edit(Task $task)

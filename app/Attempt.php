@@ -12,7 +12,7 @@ class Attempt extends Model
 
     protected $guarded = [];
 
-    protected $hidden = ['task_id', 'created_at', 'started_at', 'saved_relative_time'];
+    protected $hidden = ['task_id', 'started_at', 'saved_relative_time'];
 
     protected $touches = ['task'];
 
@@ -69,6 +69,16 @@ class Attempt extends Model
     public function scopeActive($query)
     {
         return $query->whereNotNull('started_at');
+    }
+
+    public function scopeNotActive($query)
+    {
+        return $query->whereNull('started_at');
+    }
+
+    public function scopeCountable($query)
+    {
+        $query->notActive()->where('saved_relative_time', '!=', 0);
     }
 
     //endregion
