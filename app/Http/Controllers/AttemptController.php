@@ -32,6 +32,7 @@ class AttemptController extends Controller
 
     public function edit(Task $task, Attempt $attempt)
     {
+        $attempt->append('relative_time');
         return $attempt;
     }
 
@@ -42,7 +43,12 @@ class AttemptController extends Controller
 
     public function update(Task $task, Attempt $attempt, AttemptRequest $request)
     {
-        $attempt->update($request->validated());
+        $data = $request->validated();
+        if ($request->has('saved_relative_time')) {
+            $data['started_at'] = null;
+        }
+
+        $attempt->update($data);
 
         return response()->noContent();
     }
