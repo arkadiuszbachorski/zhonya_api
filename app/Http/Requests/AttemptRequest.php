@@ -25,6 +25,7 @@ class AttemptRequest extends FormRequest
     {
         return [
             'description' => ['nullable', 'string'],
+            'saved_relative_time' => ['nullable', 'integer', 'min:0'],
         ];
     }
 }

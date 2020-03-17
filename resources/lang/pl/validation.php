@@ -154,5 +154,6 @@ return [
         'email' => 'email',
         'password' => 'hasło',
         'message' => 'wiadomość',
+        'saved_relative_time' => 'czas'
     ],
 ];
