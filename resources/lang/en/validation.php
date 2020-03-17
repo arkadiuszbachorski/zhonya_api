@@ -148,6 +148,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'saved_relative_time' => 'time',
+    ],
 
 ];
