@@ -9,7 +9,7 @@ class UserObserver
     public function deleting(User $user)
     {
         $user->tokens()->delete();
-        $user->tasks()->delete();
+        $user->tasks()->get()->each->delete();
         $user->tags()->delete();
     }
 }
