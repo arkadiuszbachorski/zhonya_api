@@ -16,7 +16,7 @@ class TaskSeeder extends Seeder
         $users = User::all();
 
         $users->each(function (User $user) {
-            $user->tasks()->createMany(
+            $user->tasks()->saveMany(
                 factory(Task::class, 5)->make()
             );
         });
