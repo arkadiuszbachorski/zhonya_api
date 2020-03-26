@@ -38,11 +38,6 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
-        Route::get('/test', function() {
-            $message = (new VerifyUser())->toMail(User::first());
-            return $message->render();
-        });
     }
 
 
@@ -95,7 +90,9 @@ class RouteServiceProvider extends ServiceProvider
                     ->group($this->apiRoutesFile('dashboard'));
             });
 
-
+            if (config('e2e.allow')) {
+                Route::prefix('e2e')->group($this->apiRoutesFile('e2e'));
+            }
         });
     }
 
