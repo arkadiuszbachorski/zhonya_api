@@ -10,15 +10,21 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
+    protected function generateTestUser()
+    {
+        User::firstOrCreate([
+            'email' => 'test@test.com',
+        ], [
+            'password' => Hash::make('test1234'),
+            'verified' => true,
+        ]);
+    }
+
     public function run()
     {
-        User::create([
-            'email' => 'test@test.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('test1234'),
-            'remember_token' => Str::random(10),
-        ]);
+        $this->generateTestUser();
 
-        factory(User::class, 4)->create();
+
+        factory(User::class, 5)->create();
     }
 }
