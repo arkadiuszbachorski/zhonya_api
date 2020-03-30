@@ -24,7 +24,8 @@ class TaskController extends Controller
         }
 
         $tasks = $tasks->orderBy('updated_at', 'desc')
-            ->with('attempts')
+            ->withCountableAttempts()
+            ->with('tags')
             ->get()
             ->appendToEach('time_statistics', 'tags_colors', 'short_description', 'active')
             ->hideInEach('description');
@@ -44,9 +45,7 @@ class TaskController extends Controller
 
     public function data(Task $task)
     {
-        $task->load(['attempts' => function ($query) {
-            $query->countable();
-        }]);
+        $task->loadMissingCountableAttempts();
         $task->append('time_statistics_full');
 
         $task->attempts->hideInEach('updated_at', 'description', 'name')->appendToEach('relative_time','short_description');
