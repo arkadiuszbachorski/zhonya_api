@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helpers\FacebookAuth;
+use App\Services\FacebookAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
@@ -32,14 +32,14 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function registerFacebook(Request $request)
+    public function registerFacebook(FacebookAuth $facebookAuth, Request $request)
     {
         $data = $request->validate([
             'email' => ['required', 'string', 'email', 'max:255'],
             'access_token' => ['required', 'string'],
         ]);
 
-        if (!(new FacebookAuth())->checkIfTokenIsValid($data['access_token'])) {
+        if (!$facebookAuth->checkIfTokenIsValid($data['access_token'])) {
             abort(403);
         }
 

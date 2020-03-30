@@ -1,38 +1,49 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Services;
 
 use App\User;
 use Illuminate\Support\Str;
 
-class SearchHelper
+class Search
 {
-    private $search, $tags, $tasks, $attempts;
+    protected $search, $tags, $tasks, $attempts;
 
-    const SCORE_LIMIT = 15;
+    public $scoreLimit = 15;
 
     const PARAMS = [
         'active' => '-a=',
         'tag' => '-t=',
     ];
 
-    public function __construct(string $search, User $user)
+    public function search(string $search, User $user)
     {
         $this->search = $search;
-        $this->tags = $user->tags();
         $this->tasks = $user->tasks();
         $this->attempts = $user->attempts();
+        $this->tags = $user->tags();
 
         $this->determineSearchType();
+
+        return $this->getData();
+    }
+
+    protected function hasPrefix(string $prefix)
+    {
+        $hasPrefix = Str::startsWith($this->search, $prefix);
+
+        if ($hasPrefix) {
+            $this->search = Str::after($this->search, $prefix);
+        }
+
+        return $hasPrefix;
     }
 
     protected function determineSearchType()
     {
-        if (Str::startsWith($this->search, self::PARAMS['tag'])) {
-            $this->search = Str::after($this->search, self::PARAMS['tag']);
+        if ($this->hasPrefix(self::PARAMS['tag'])) {
             $this->searchTasksInTags();
-        } elseif (Str::startsWith($this->search, self::PARAMS['active'])) {
-            $this->search = Str::after($this->search, self::PARAMS['active']);
+        } elseif ($this->hasPrefix(self::PARAMS['active'])) {
             $this->searchActive();
         } else {
             $this->searchNormal();
@@ -68,7 +79,7 @@ class SearchHelper
 
         $this->tags = $this->tags->withCount('tasks')
             ->orderBy('tasks_count', 'DESC')
-            ->limit(self::SCORE_LIMIT)
+            ->limit($this->scoreLimit)
             ->get();
     }
 
@@ -77,7 +88,7 @@ class SearchHelper
         if ($this->tasks === []) return;
 
         $this->tasks = $this->tasks->orderBy('updated_at', 'DESC')
-            ->limit(self::SCORE_LIMIT)
+            ->limit($this->scoreLimit)
             ->get();
     }
 
@@ -96,7 +107,7 @@ class SearchHelper
             });
     }
 
-    public function getData()
+    protected function getData()
     {
         $this->getTags();
         $this->getTasks();
