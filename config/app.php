@@ -178,6 +178,8 @@ return [
 
         App\Providers\CollectionServiceProvider::class,
 
+        App\Providers\FacebookAuthServiceProvider::class,
+
     ],
 
     /*
