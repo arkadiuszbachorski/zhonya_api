@@ -179,6 +179,7 @@ return [
         App\Providers\CollectionServiceProvider::class,
 
         App\Providers\FacebookAuthServiceProvider::class,
+        App\Providers\SearchServiceProvider::class,
 
     ],
 

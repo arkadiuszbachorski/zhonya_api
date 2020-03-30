@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SearchHelper;
+use App\Services\Search;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
-    public function search(Request $request)
+    public function search(Search $search, Request $request)
     {
         $request->validate([
             'search' => 'required',
         ]);
 
-        $search = new SearchHelper($request->input('search'), auth()->user());
-
-        return $search->getData();
+        return $search->search($request->input('search'), Auth::user());
     }
 }
