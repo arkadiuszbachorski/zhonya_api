@@ -99,6 +99,7 @@ class Search
         $this->attempts = $this->attempts
             ->with('task')
             ->orderBy('updated_at', 'desc')
+            ->limit($this->scoreLimit)
             ->get()
             ->each(function ($attempt) {
                 $attempt->append('short_description', 'relative_time');
