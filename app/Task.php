@@ -23,28 +23,40 @@ class Task extends Model
         $this->attributes['has_queried_tag'] = $this->tags()->where('tags.id', $tagId)->exists();
     }
 
+    public function loadMissingCountableAttempts()
+    {
+        $this->loadMissing(['attempts' => function ($attemptsQuery) {
+            $attemptsQuery->countable();
+        }]);
+    }
+
     //endregion
 
     //region Mutators
 
     public function getActiveAttribute()
     {
-        return $this->attempts()->active()->exists();
+        return $this->attempts->contains(function (Attempt $attempt) {
+            return $attempt->active;
+        });
     }
 
     public function getTimeMaxAttribute()
     {
-        return $this->attempts()->countable()->max('saved_relative_time');
+        $this->loadMissingCountableAttempts();
+        return $this->attempts->max('saved_relative_time');
     }
 
     public function getTimeMinAttribute()
     {
-        return $this->attempts()->countable()->min('saved_relative_time');
+        $this->loadMissingCountableAttempts();
+        return $this->attempts->min('saved_relative_time');
     }
 
     public function getTimeAvgAttribute()
     {
-        $avg = $this->attempts()->countable()->avg('saved_relative_time');
+        $this->loadMissingCountableAttempts();
+        $avg = $this->attempts->avg('saved_relative_time');
 
         return $avg !== null ? round($avg) : null;
     }
@@ -69,9 +81,8 @@ class Task extends Model
 
     public function getTimeSortedAttribute()
     {
-        return $this->attempts()
-            ->countable()
-            ->get('saved_relative_time')
+        $this->loadMissingCountableAttempts();
+        return $this->attempts
             ->pluck('saved_relative_time')
             ->sort()
             ->values();
@@ -106,7 +117,7 @@ class Task extends Model
 
     public function getTagsColorsAttribute()
     {
-        return $this->tags()->pluck('color');
+        return $this->tags->pluck('color');
     }
 
     public function getShortDescriptionAttribute()
@@ -139,6 +150,13 @@ class Task extends Model
         $query->whereHas('tags', function ($query) use ($tagId) {
            $query->where('tags.id', $tagId);
         });
+    }
+
+    public function scopeWithCountableAttempts($query)
+    {
+        return $query->with(['attempts' => function ($attemptsQuery) {
+            $attemptsQuery->countable();
+        }]);
     }
 
     public function scopeWithoutTag($query, $tagId)
