@@ -36,9 +36,8 @@ class Task extends Model
 
     public function getActiveAttribute()
     {
-        return $this->attempts->contains(function (Attempt $attempt) {
-            return $attempt->active;
-        });
+        $this->loadMissingCountableAttempts();
+        return $this->attempts_count !== $this->attempts->count();
     }
 
     public function getTimeMaxAttribute()
