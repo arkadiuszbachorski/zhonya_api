@@ -13,11 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $users = factory(User::class, 3)->create();
-        $users->each(function(User $user) {
-            $user->tags()->saveMany(
-                factory(Tag::class, 3)->make()
-            );
-        });
+        $this->call([
+            UserSeeder::class,
+            TaskSeeder::class,
+            AttemptSeeder::class,
+            TagSeeder::class,
+            TagTaskSeeder::class,
+        ]);
     }
 }
