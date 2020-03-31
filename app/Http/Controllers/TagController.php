@@ -17,11 +17,16 @@ class TagController extends Controller
 
         $tags = $tags->withCount('tasks')
             ->orderBy('tasks_count', 'desc')
-            ->get()
+            ->paginate(60);
+        $processedTags = $tags->getCollection()
             ->hideInEach('description')
             ->appendToEach('short_description');
+        $tags->setCollection($processedTags);
 
-        return $tags;
+        return [
+            'data' => $tags->items(),
+            'nextPage' => $tags->nextPageUrl(),
+        ];
     }
 
     public function store(TagRequest $request)

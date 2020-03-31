@@ -18,9 +18,14 @@ class AttemptController extends Controller
         if ($request->has('search')) $attempts->search($request->query('search'));
         if ($request->has('active')) $attempts->active();
 
-        $attempts = $attempts->get()->appendToEach('active', 'relative_time');
+        $attempts = $attempts->paginate(60);
+        $processedTasks = $attempts->getCollection()->appendToEach('active', 'relative_time');
+        $attempts->setCollection($processedTasks);
 
-        return $attempts;
+        return [
+            'data' => $attempts->items(),
+            'nextPage' => $attempts->nextPageUrl(),
+        ];
     }
 
     public function store(Task $task, AttemptRequest $request)
