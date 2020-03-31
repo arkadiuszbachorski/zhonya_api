@@ -27,12 +27,17 @@ class TaskController extends Controller
             ->withCountableAttempts()
             ->with('tags')
             ->withCount('attempts')
-            ->get()
+            ->paginate(60);
+        $processedTasks = $tasks->getCollection()
             ->appendToEach('time_statistics', 'tags_colors', 'short_description', 'active')
             ->hideInEach('description');
+        $tasks->setCollection($processedTasks);
 
         return [
-            'tasks' => $tasks,
+            'tasks' => [
+                'data' => $tasks->items(),
+                'nextPage' => $tasks->nextPageUrl(),
+            ],
             'tags' => $tags,
         ];
     }

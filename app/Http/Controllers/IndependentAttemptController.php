@@ -27,14 +27,22 @@ class IndependentAttemptController extends Controller
         if ($request->has('active')) $attempts->active();
 
         $attempts = $attempts->orderBy('updated_at', 'desc')
-            ->get()
+            ->paginate(60);
+        $processedAttempts = $attempts->getCollection()
             ->each(function ($attempt) {
                 $attempt->append('short_description', 'relative_time', 'active');
                 $attempt->addHidden('laravel_through_key', 'description');
                 $attempt->task->addHidden('description', 'updated_at');
             });
+        $attempts->setCollection($processedAttempts);
 
-        return compact('attempts', 'tasks');
+        return [
+            'attempts' => [
+                'data' => $attempts->items(),
+                'nextPage' => $attempts->nextPageUrl(),
+            ],
+            'tasks' => $tasks,
+        ];
     }
 
     public function create()
