@@ -46,7 +46,7 @@ class RegisterController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         if (!$user) {
-            $data['password'] = Str::random();
+            $data['password'] = Hash::make(Str::random());
             $data['verified'] = false;
             $user = User::create($data);
         }
