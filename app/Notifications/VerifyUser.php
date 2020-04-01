@@ -41,7 +41,7 @@ class VerifyUser extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = env('FRONTEND_URL').'/user/verify/'.$notifiable->verification_token;
+        $url = config('app.frontend_url').'/user/verify/'.$notifiable->verification_token;
 
         return (new MailMessage)
             ->subject(Lang::get('emails.verify.subject'))
