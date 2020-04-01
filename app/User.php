@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function generateVerificationToken()
     {
-        $this->verification_token = Str::random(60);
+        $this->verification_token = Str::random(10);
         $this->verified = false;
     }
 
@@ -66,7 +66,7 @@ class User extends Authenticatable
 
     public function generateDeleteToken()
     {
-        $this->delete_token = Str::random(60);
+        $this->delete_token = Str::random(10);
         $this->delete_token_generated_at = now();
     }
 

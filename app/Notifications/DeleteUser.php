@@ -41,12 +41,11 @@ class DeleteUser extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = config('app.frontend_url').'/user/delete/'.$notifiable->delete_token;
-
         return (new MailMessage)
             ->subject(Lang::get('emails.delete.subject'))
-            ->line(Lang::get('emails.delete.click'))
-            ->action(Lang::get('emails.delete.button'), $url);
+            ->line(Lang::get('emails.delete.message'))
+            ->line(Lang::get('emails.delete.code'))
+            ->line($notifiable->delete_token);
     }
 
     /**
