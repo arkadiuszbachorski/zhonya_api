@@ -25,8 +25,8 @@ class FacebookAuth
     {
         $response = $this->client->get('/oauth/access_token', [
             'query' => [
-                'client_id' => env('FACEBOOK_CLIENT_ID'),
-                'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+                'client_id' => config('services.facebook.client_id'),
+                'client_secret' => config('services.facebook.client_secret'),
                 'grant_type' => 'client_credentials',
             ]
         ]);
