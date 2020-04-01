@@ -11,14 +11,13 @@ return [
         'do swojej przeglądarki: [:actionURL](:actionURL)',
     'verify' => [
         'subject' => 'Zweryfikuj swoje konto Zhonya',
-        'click' => 'Kliknij poniższy przycisk by zweryfikować swój adres email',
-        'button' => 'Zweryfikuj adres email',
+        'code' => 'Twój kod weryfikacyjny:',
         'notCreated' => 'Jeśli nie tworzyłeś lub aktualizowałeś konta nie musisz podejmować żadnych akcji',
     ],
     'delete' => [
         'subject' => 'Usuń swoje konto Zhonya',
-        'click' => 'Czy na pewno chcesz usunąć swoje konto? Ten proces jest nieodwracalny!',
-        'button' => 'Usuń konto',
+        'message' => 'Czy na pewno chcesz usunąć swoje konto? Ten proces jest nieodwracalny!',
+        'code' => 'Twój kod usuwający:',
     ],
     'passwordReset' => [
         'subject' => 'Zresetuj swoje hasło Zhonya',
