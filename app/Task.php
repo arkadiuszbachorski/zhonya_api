@@ -107,7 +107,7 @@ class Task extends Model
         $range = $max - $min;
         $standardDeviation = $this->time_standard_deviation;
         $quartiles = $this->time_quartiles;
-        $coefficientOfVariation = $standardDeviation / $avg;
+        $coefficientOfVariation = round($standardDeviation / $avg, 2);
 
 
 
